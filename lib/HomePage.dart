@@ -8,7 +8,8 @@ import 'package:table_calendar/table_calendar.dart';
 class HomePage extends StatefulWidget {
   static final now = DateTime.now();
   final table = TableCalendar(
-    rowHeight: 60.h,
+    calendarStyle: CalendarStyle(rangeHighlightColor: Colors.red),
+    rowHeight: 80.h,
     firstDay: DateTime.utc(2010, 10, 16),
     lastDay: DateTime.utc(2030, 3, 14),
     focusedDay: DateTime.now(),
@@ -30,8 +31,13 @@ class _HomePageState extends State<HomePage> {
         margin: EdgeInsets.only(right: 290.w),
         height: 100.h,
         padding: EdgeInsets.symmetric(horizontal: 20.w),
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(100.r)),
+        decoration: BoxDecoration(boxShadow: const [
+          BoxShadow(
+            color: Colors.grey,
+            offset: Offset(0.0, 1.0), //(x,y)
+            blurRadius: 6.0,
+          ),
+        ], color: Colors.white, borderRadius: BorderRadius.circular(100.r)),
         child: const TextButton(
           onPressed: null,
           child: Text("+ Add new habit"),
@@ -96,30 +102,42 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  children: [
-                    SizedBox(
-                        width: 70.w,
-                        height: 70.h,
-                        child: Image.asset(currentIndex == 0
-                            ? 'assets/menuSelected.png'
-                            : 'assets/menu.png')),
-                    const Text("All habits")
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    currentIndex = 0;
+                    setState(() {});
+                  },
+                  child: Column(
+                    children: [
+                      SizedBox(
+                          width: 70.w,
+                          height: 70.h,
+                          child: Image.asset(currentIndex == 0
+                              ? 'assets/menuSelected.png'
+                              : 'assets/menu.png')),
+                      const Text("All habits")
+                    ],
+                  ),
                 ),
                 const Spacer(
                   flex: 1,
                 ),
-                Column(
-                  children: [
-                    SizedBox(
-                        width: 70.w,
-                        height: 70.h,
-                        child: Image.asset(currentIndex == 1
-                            ? 'assets/todaySelected.png'
-                            : 'assets/today.png')),
-                    Text("Today")
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    currentIndex = 1;
+                    setState(() {});
+                  },
+                  child: Column(
+                    children: [
+                      SizedBox(
+                          width: 70.w,
+                          height: 70.h,
+                          child: Image.asset(currentIndex == 1
+                              ? 'assets/todaySelected.png'
+                              : 'assets/today.png')),
+                      const Text("Today")
+                    ],
+                  ),
                 )
               ],
             ),
@@ -127,7 +145,7 @@ class _HomePageState extends State<HomePage> {
         ]),
       ),
       body: Container(
-        color: Color.fromARGB(255, 240, 240, 240),
+        color: const Color.fromARGB(255, 240, 240, 240),
         child: Stack(
           children: [
             Center(
@@ -147,21 +165,23 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(
                           fontSize: 100.sp,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 20, 176, 191)),
+                          color: const Color.fromARGB(255, 20, 176, 191)),
                     ),
                     Text(
                       "Add Something?",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 100.sp,
-                          color: Color.fromARGB(255, 20, 176, 191)),
+                          color: const Color.fromARGB(255, 20, 176, 191)),
                     )
                   ]),
             ),
             AnimatedContainer(
-                decoration: BoxDecoration(color: Colors.white),
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 240, 240, 240),
+                ),
                 height: tableHeight,
-                duration: Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 500),
                 child: SingleChildScrollView(child: widget.table))
           ],
         ),
