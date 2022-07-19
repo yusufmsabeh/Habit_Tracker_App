@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 const String tableHabit = 'habit';
 
 class Habitfields {
+  static final List<String> values = [id, name, target, done];
   static const String id = '_id';
   static const String name = '_name';
   static const String target = '_target';
@@ -22,7 +23,7 @@ class Habit {
         Habitfields.id: id,
         Habitfields.name: name,
         Habitfields.target: target,
-        Habitfields.done: done
+        Habitfields.done: 0
       };
 
   static Habit fromJson(Map json) => Habit(
