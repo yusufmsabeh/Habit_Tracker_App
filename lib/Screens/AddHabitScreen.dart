@@ -13,6 +13,7 @@ class AddHabitScreen extends StatefulWidget {
 }
 
 class _AddHabitScreenState extends State<AddHabitScreen> {
+  List<bool> _isSelected = List.generate(7, (index) => false);
   final nameController = TextEditingController();
   final tragetController = TextEditingController();
 
@@ -25,7 +26,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
       insetPadding: const EdgeInsets.all(10),
       child: Container(
         margin: EdgeInsets.all(50.w),
-        height: 900.h,
+        height: 1100.h,
         child: Column(
           children: [
             Container(
@@ -54,9 +55,57 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                 child: TextField(
                   controller: nameController,
                   decoration: InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.cyan),
+                      ),
                       hintText: "Name",
                       focusColor: Color.fromARGB(255, 145, 197, 255)),
                 )),
+            Container(
+              // margin: EdgeInsets.only(bottom: 20.w),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Schedule",
+                style: TextStyle(
+                    fontSize: 50.sp, color: Color.fromARGB(255, 183, 183, 183)),
+                textAlign: TextAlign.left,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.zero,
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 169, 169, 169),
+                  borderRadius: BorderRadius.circular(25.r)),
+              child: ToggleButtons(
+                  onPressed: (index) {
+                    setState(() {
+                      _isSelected[index] = !_isSelected[index];
+                    });
+                  },
+                  borderColor: Colors.white,
+                  selectedBorderColor: Colors.white,
+                  borderWidth: 15.h,
+                  color: Colors.white,
+                  selectedColor: Colors.white,
+                  fillColor: Color.fromARGB(255, 108, 186, 212),
+                  borderRadius: BorderRadius.circular(10.r),
+                  constraints: BoxConstraints(
+                      minHeight: (MediaQuery.of(context).size.height - 36) / 20,
+                      minWidth: (MediaQuery.of(context).size.width - 36) / 9),
+                  children: [
+                    Text('Mon'),
+                    Text('Tue'),
+                    Text('Wed'),
+                    Text('Thu'),
+                    Text('Fri'),
+                    Text('Sat'),
+                    Text('Sun '),
+                  ],
+                  isSelected: _isSelected),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 90.w),
+            ),
             Container(
                 // margin: EdgeInsets.only(bottom: 20.w),
                 alignment: Alignment.centerLeft,
@@ -100,7 +149,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                           fontWeight: FontWeight.bold),
                     ))
               ],
-            )
+            ),
           ],
         ),
       ),

@@ -70,6 +70,7 @@ class _HomePageState extends State<HomePage> {
           leading: currentIndex == 1
               ? GestureDetector(
                   onTap: () {
+                    print("preesing today button");
                     tableHeight == 0 ? tableHeight = 500.h : tableHeight = 0;
                     setState(() {});
                   },
@@ -170,6 +171,6 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Container(
             color: const Color.fromARGB(255, 240, 240, 240),
-            child: currentIndex == 0 ? AllHabits() : TodayScreen()));
+            child: currentIndex == 0 ? AllHabits() : TodayScreen(tableHeight)));
   }
 }

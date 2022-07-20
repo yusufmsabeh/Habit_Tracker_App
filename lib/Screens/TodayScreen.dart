@@ -14,14 +14,14 @@ class TodayScreen extends StatefulWidget {
     lastDay: DateTime.utc(2030, 3, 14),
     focusedDay: DateTime.now(),
   );
-  TodayScreen({Key? key}) : super(key: key);
+  double todayHieght;
+  TodayScreen(this.todayHieght);
 
   @override
   State<TodayScreen> createState() => _TodayScreenState();
 }
 
 class _TodayScreenState extends State<TodayScreen> {
-  double tableHeight = 0;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -56,7 +56,7 @@ class _TodayScreenState extends State<TodayScreen> {
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 240, 240, 240),
             ),
-            height: tableHeight,
+            height: widget.todayHieght,
             duration: const Duration(milliseconds: 500),
             child: SingleChildScrollView(child: widget.table))
       ],

@@ -79,7 +79,7 @@ class HabitWidget extends StatelessWidget {
                           maximum: habit.target / 1,
                           showLabels: false,
                           showTicks: false,
-                          axisLineStyle: const AxisLineStyle(
+                          axisLineStyle: AxisLineStyle(
                               thickness: 0.2,
                               cornerStyle: CornerStyle.bothCurve,
                               color: Color.fromARGB(255, 240, 240, 240),

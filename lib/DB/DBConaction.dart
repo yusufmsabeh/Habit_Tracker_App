@@ -40,7 +40,7 @@ class connection {
   Future<List<Habit>> readAllHabits() async {
     final db = await instance.database;
     final maps = await db.query(tableHabit, columns: Habitfields.values);
-    print(maps);
+
     List<Habit> allHabits = maps.map((e) => Habit.fromJson(e)).toList();
     return allHabits;
   }
