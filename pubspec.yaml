@@ -39,6 +39,7 @@ dependencies:
   table_calendar: ^3.0.6
   sqflite: ^2.0.3
   syncfusion_flutter_gauges: ^20.2.38
+  fluttertoast: ^8.0.9
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,8 @@ flutter:
     - assets/menuSelected.png
     - assets/edit.png
     - assets/delete.png
+    - assets/cards.png
+    - assets/CompTask.png
 
 
 

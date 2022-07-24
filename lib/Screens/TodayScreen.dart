@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:habit_tracker/DB/DBConaction.dart';
+import 'package:habit_tracker/Widgets.dart/TodayHabit.dart';
+import 'package:habit_tracker/model/habit.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class TodayScreen extends StatefulWidget {
+  Function function;
   static final now = DateTime.now();
   final table = TableCalendar(
     calendarStyle: CalendarStyle(rangeHighlightColor: Colors.red),
@@ -15,43 +19,79 @@ class TodayScreen extends StatefulWidget {
     focusedDay: DateTime.now(),
   );
   double todayHieght;
-  TodayScreen(this.todayHieght);
+  TodayScreen(this.todayHieght, this.function);
 
   @override
   State<TodayScreen> createState() => _TodayScreenState();
 }
 
 class _TodayScreenState extends State<TodayScreen> {
+  List<Habit> habits = [];
+  readAllHabits() async {
+    habits = await connection.instance.realAllHaibtsByDay();
+
+    setState(() {});
+  }
+
+  Refrsh() {
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    readAllHabits();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // return ListView.builder(
+    //     itemCount: habits.length,
+    //     itemBuilder: (context, index) {
+    //       return TodayHabit(habit: habits[index]);
+    //     });
+
     return Stack(
       children: [
-        Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Container(
-              width: 600.w,
-              height: 600.h,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage('assets/HomePage.png'))),
-            ),
-            Text(
-              "Noting to do today",
-              style: TextStyle(
-                  fontSize: 100.sp,
-                  fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 20, 176, 191)),
-            ),
-            Text(
-              "Add Something?",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 100.sp,
-                  color: const Color.fromARGB(255, 20, 176, 191)),
-            )
-          ]),
-        ),
+        habits.isEmpty
+            ? Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 600.w,
+                        height: 600.h,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage('assets/HomePage.png'))),
+                      ),
+                      Text(
+                        "Noting to do today",
+                        style: TextStyle(
+                            fontSize: 100.sp,
+                            fontWeight: FontWeight.bold,
+                            color: const Color.fromARGB(255, 20, 176, 191)),
+                      ),
+                      Text(
+                        "Add Something?",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 100.sp,
+                            color: const Color.fromARGB(255, 20, 176, 191)),
+                      )
+                    ]),
+              )
+            : ListView.builder(
+                itemCount: habits.length,
+                itemBuilder: (context, index) {
+                  return TodayHabit(
+                    habit: habits[index],
+                    function: Refrsh,
+                    function2: readAllHabits,
+                  );
+                }),
         AnimatedContainer(
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 240, 240, 240),

@@ -3,13 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:habit_tracker/DB/DBConaction.dart';
 import 'package:habit_tracker/model/habit.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class HabitWidget extends StatelessWidget {
   Habit habit;
+  Function function;
+  Function function2;
   late double progress;
-  HabitWidget({required this.habit, Key? key}) : super(key: key) {
+  HabitWidget(
+      {required this.habit,
+      required this.function,
+      required this.function2,
+      Key? key})
+      : super(key: key) {
     progress = (habit.done! / habit.target) * 100;
   }
 
@@ -28,14 +36,21 @@ class HabitWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-                  margin: EdgeInsets.all(30.w),
-                  height: 60.h,
-                  width: 60.w,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage('assets/delete.png'))),
+                GestureDetector(
+                  onTap: () {
+                    connection.instance.deleteHabit(habit.id);
+                    function2();
+                    function();
+                  },
+                  child: Container(
+                    margin: EdgeInsets.all(30.w),
+                    height: 60.h,
+                    width: 60.w,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage('assets/delete.png'))),
+                  ),
                 ),
                 Container(
                   margin: EdgeInsets.all(30.w),
@@ -60,7 +75,7 @@ class HabitWidget extends StatelessWidget {
                       RadialAxis(
                           annotations: <GaugeAnnotation>[
                             GaugeAnnotation(
-                              widget: Text("$progress %",
+                              widget: Text(" ${progress.floor()} %",
                                   style: TextStyle(fontSize: 70.sp)),
                               positionFactor: 0.1,
                               angle: 90,
@@ -69,7 +84,7 @@ class HabitWidget extends StatelessWidget {
                           pointers: <GaugePointer>[
                             RangePointer(
                               color: Color.fromARGB(255, 117, 184, 213),
-                              value: 1,
+                              value: habit.done! / 1,
                               cornerStyle: CornerStyle.bothCurve,
                               width: 0.2,
                               sizeUnit: GaugeSizeUnit.factor,

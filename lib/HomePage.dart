@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -10,14 +12,6 @@ import 'Screens/AllHabits.dart';
 import 'Screens/TodayScreen.dart';
 
 class HomePage extends StatefulWidget {
-  static final now = DateTime.now();
-  final table = TableCalendar(
-    calendarStyle: CalendarStyle(rangeHighlightColor: Colors.red),
-    rowHeight: 80.h,
-    firstDay: DateTime.utc(2010, 10, 16),
-    lastDay: DateTime.utc(2030, 3, 14),
-    focusedDay: DateTime.now(),
-  );
   HomePage({Key? key}) : super(key: key);
 
   @override
@@ -28,6 +22,11 @@ class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
   double tableHeight = 0;
   Widget CurrentLeading = Text("Habit list");
+
+  Refresh() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +34,10 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: GestureDetector(
           onTap: (() {
             showDialog(
-                context: context, builder: (context) => AddHabitScreen());
+                context: context,
+                builder: (context) => AddHabitScreen(
+                      function: Refresh,
+                    ));
           }),
           child: Container(
             margin: EdgeInsets.only(right: 290.w),
@@ -70,7 +72,6 @@ class _HomePageState extends State<HomePage> {
           leading: currentIndex == 1
               ? GestureDetector(
                   onTap: () {
-                    print("preesing today button");
                     tableHeight == 0 ? tableHeight = 500.h : tableHeight = 0;
                     setState(() {});
                   },
@@ -108,20 +109,6 @@ class _HomePageState extends State<HomePage> {
         bottomNavigationBar: SizedBox(
           height: 150.h,
           child: Stack(children: [
-            // Align(
-            //   alignment: Alignment.topCenter,
-            //   child: Container(
-            //     height: 100.h,
-            //     padding: EdgeInsets.symmetric(horizontal: 20.w),
-            //     decoration: BoxDecoration(
-            //         color: Colors.white,
-            //         borderRadius: BorderRadius.circular(100.r)),
-            //     child: const TextButton(
-            //       onPressed: null,
-            //       child: Text("+ Add new habit"),
-            //     ),
-            //   ),
-            // ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 150.w),
               child: Row(
@@ -171,6 +158,10 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Container(
             color: const Color.fromARGB(255, 240, 240, 240),
-            child: currentIndex == 0 ? AllHabits() : TodayScreen(tableHeight)));
+            child: currentIndex == 0
+                ? AllHabits(
+                    function: Refresh,
+                  )
+                : TodayScreen(tableHeight, Refresh)));
   }
 }

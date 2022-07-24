@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -8,7 +10,8 @@ import 'package:habit_tracker/Widgets.dart/HabitWidget.dart';
 import 'package:habit_tracker/model/habit.dart';
 
 class AllHabits extends StatefulWidget {
-  const AllHabits({Key? key}) : super(key: key);
+  Function function;
+  AllHabits({required this.function, Key? key}) : super(key: key);
 
   @override
   State<AllHabits> createState() => _AllHabitsState();
@@ -18,6 +21,7 @@ class _AllHabitsState extends State<AllHabits> {
   List<Habit> habits = [];
   void readAllHabits() async {
     habits = await connection.instance.readAllHabits();
+
     setState(() {});
   }
 
@@ -33,7 +37,11 @@ class _AllHabitsState extends State<AllHabits> {
       margin: EdgeInsets.symmetric(horizontal: 40.w),
       child: ListView.builder(
           itemCount: habits.length,
-          itemBuilder: ((context, index) => HabitWidget(habit: habits[index]))),
+          itemBuilder: ((context, index) => HabitWidget(
+                habit: habits[index],
+                function: widget.function,
+                function2: readAllHabits,
+              ))),
     );
   }
 }

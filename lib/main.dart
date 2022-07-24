@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:habit_tracker/DB/DBConaction.dart';
 import 'package:habit_tracker/HomePage.dart';
 
-void main() {
+void main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // connection.instance.initDB('habit_database7');
   runApp(const MyApp());
 }
 
