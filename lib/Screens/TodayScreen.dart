@@ -4,6 +4,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_tracker/DB/DBConaction.dart';
+import 'package:habit_tracker/Screens/EmptyHabitScreen.dart';
+import 'package:habit_tracker/Widgets.dart/LoadingSpinner.dart';
 import 'package:habit_tracker/Widgets.dart/TodayHabit.dart';
 import 'package:habit_tracker/model/habit.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -27,13 +29,10 @@ class TodayScreen extends StatefulWidget {
 
 class _TodayScreenState extends State<TodayScreen> {
   List<Habit> habits = [];
+
   readAllHabits() async {
     habits = await connection.instance.realAllHaibtsByDay();
-
-    setState(() {});
-  }
-
-  Refrsh() {
+    await Future.delayed(const Duration(seconds: 2), () {});
     setState(() {});
   }
 
@@ -46,49 +45,15 @@ class _TodayScreenState extends State<TodayScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // return ListView.builder(
-    //     itemCount: habits.length,
-    //     itemBuilder: (context, index) {
-    //       return TodayHabit(habit: habits[index]);
-    //     });
-
     return Stack(
       children: [
         habits.isEmpty
-            ? Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 600.w,
-                        height: 600.h,
-                        decoration: const BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage('assets/HomePage.png'))),
-                      ),
-                      Text(
-                        "Noting to do today",
-                        style: TextStyle(
-                            fontSize: 100.sp,
-                            fontWeight: FontWeight.bold,
-                            color: const Color.fromARGB(255, 20, 176, 191)),
-                      ),
-                      Text(
-                        "Add Something?",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 100.sp,
-                            color: const Color.fromARGB(255, 20, 176, 191)),
-                      )
-                    ]),
-              )
+            ? EmptyHabitScreen()
             : ListView.builder(
                 itemCount: habits.length,
                 itemBuilder: (context, index) {
                   return TodayHabit(
                     habit: habits[index],
-                    function: Refrsh,
                     function2: readAllHabits,
                   );
                 }),

@@ -26,6 +26,13 @@ class Habit {
         Habitfields.done: 0
       };
 
+  Map<String, dynamic> toJsonWithdone() => {
+        Habitfields.id: id,
+        Habitfields.name: name,
+        Habitfields.target: target,
+        Habitfields.done: done
+      };
+
   static Habit fromJson(Map json) => Habit(
       id: json[Habitfields.id] as int,
       name: json[Habitfields.name] as String,

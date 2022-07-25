@@ -4,6 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_tracker/DB/DBConaction.dart';
+import 'package:habit_tracker/Screens/AddHabitScreen.dart';
 import 'package:habit_tracker/model/habit.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
@@ -37,8 +38,8 @@ class HabitWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 GestureDetector(
-                  onTap: () {
-                    connection.instance.deleteHabit(habit.id);
+                  onTap: () async {
+                    await connection.instance.deleteHabit(habit.id);
                     function2();
                     function();
                   },
@@ -48,18 +49,30 @@ class HabitWidget extends StatelessWidget {
                     width: 60.w,
                     decoration: const BoxDecoration(
                         image: DecorationImage(
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                             image: AssetImage('assets/delete.png'))),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.all(30.w),
-                  height: 60.h,
-                  width: 60.w,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage('assets/edit.png'))),
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AddHabitScreen(
+                            function: function,
+                            habit: habit,
+                          );
+                        });
+                  },
+                  child: Container(
+                    margin: EdgeInsets.all(30.w),
+                    height: 60.h,
+                    width: 60.w,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage('assets/edit.png'))),
+                  ),
                 )
               ],
             ),

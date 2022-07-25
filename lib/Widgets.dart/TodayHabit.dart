@@ -12,13 +12,9 @@ import 'package:habit_tracker/model/habit.dart';
 
 class TodayHabit extends StatelessWidget {
   Habit habit;
-  Function function;
+
   Function function2;
-  TodayHabit(
-      {required this.habit,
-      required this.function,
-      required this.function2,
-      Key? key})
+  TodayHabit({required this.habit, required this.function2, Key? key})
       : super(key: key);
 
   @override
@@ -34,7 +30,7 @@ class TodayHabit extends StatelessWidget {
 
         habitFromDB = await connection.instance.realHabitById(habit.id);
         if (habitFromDB.done! >= habitFromDB.target) {
-          connection.instance.deleteHabit(habit.id);
+          await connection.instance.deleteHabit(habit.id);
           showDialog(
               context: context,
               builder: (context) => CongratsScreen(

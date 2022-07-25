@@ -7,7 +7,9 @@ import 'package:habit_tracker/model/habit.dart';
 
 class AddHabitScreen extends StatefulWidget {
   Function function;
-  AddHabitScreen({required this.function, Key? key}) : super(key: key);
+  Habit? habit;
+  AddHabitScreen({required this.function, this.habit, Key? key})
+      : super(key: key);
 
   @override
   State<AddHabitScreen> createState() => _AddHabitScreenState();
@@ -17,9 +19,25 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
   final _formState = GlobalKey<FormState>();
 
   List<bool> _isSelected = List.generate(7, (index) => false);
-  //List<String> days = ['M', 'T', 'W', 'R', 'F', 'U', 'S'];
+
   final nameController = TextEditingController();
   final tragetController = TextEditingController();
+
+  void loadHabitIntoControllers() async {
+    if (widget.habit != null) {
+      nameController.text = widget.habit!.name;
+      tragetController.text = widget.habit!.target.toString();
+      _isSelected = await connection.instance.getHabitDays(widget.habit!.id);
+    }
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadHabitIntoControllers();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +177,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                               fontWeight: FontWeight.bold),
                         )),
                     TextButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formState.currentState!.validate()) {
                             List<int> daysToInsert = [];
 
@@ -168,11 +186,21 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                 daysToInsert.add(i + 1);
                               }
                             }
-                            connection.instance.insertHabit(
-                                Habit(
-                                    name: nameController.text,
-                                    target: int.parse(tragetController.text)),
-                                daysToInsert);
+                            if (widget.habit == null) {
+                              await connection.instance.insertHabit(
+                                  Habit(
+                                      name: nameController.text,
+                                      target: int.parse(tragetController.text)),
+                                  daysToInsert);
+                            } else {
+                              widget.habit!.name = nameController.text;
+                              widget.habit!.target =
+                                  int.parse(tragetController.text);
+                              print(widget.habit!.done);
+                              await connection.instance
+                                  .updateHabit(widget.habit!, daysToInsert);
+                            }
+
                             widget.function();
                             Navigator.pop(context);
                           }

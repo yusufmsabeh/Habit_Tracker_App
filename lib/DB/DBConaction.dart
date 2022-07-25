@@ -14,7 +14,7 @@ class connection {
 
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await _initDB('habit_database7');
+    _database = await _initDB('habit_database9');
     return _database!;
   }
 
@@ -102,10 +102,43 @@ class connection {
     db.update(tableHabit, values, where: '$idField=?', whereArgs: [id]);
   }
 
-  void deleteHabit(id) async {
+  deleteHabit(id) async {
     final db = await instance.database;
     String idField = Habitfields.id;
     db.delete("habits_days", where: 'id=?', whereArgs: [id]);
     db.delete(tableHabit, where: '$idField=?', whereArgs: [id]);
+  }
+
+  getHabitDays(int? habitId) async {
+    final db = await instance.database;
+    List habitDaysMap =
+        await db.query('habits_days', where: 'id=?', whereArgs: [habitId]);
+    List<bool> isSelected = List.generate(7, (index) => false);
+    print(habitDaysMap);
+    habitDaysMap.forEach(
+      (element) {
+        isSelected[element['day'] - 1] = true;
+      },
+    );
+
+    return isSelected;
+  }
+
+  updateHabit(Habit habit, List<int> days) async {
+    final db = await instance.database;
+    await db.update(tableHabit, habit.toJsonWithdone(),
+        where: '${Habitfields.id}=?', whereArgs: [habit.id]);
+
+    // for (int i = 0; i < 7; i++) {
+    //   await db.update('habits_days', {'id': habit.id, 'day': days[i]},
+    //       where: 'id=? and day=?', whereArgs: [habit.id, preValues[i]]);
+    // }
+    await db.delete('habits_days', where: 'id=?', whereArgs: [habit.id]);
+    days.forEach((element) async {
+      await db.insert(
+        'habits_days',
+        {'id': habit.id, 'day': element},
+      );
+    });
   }
 }
