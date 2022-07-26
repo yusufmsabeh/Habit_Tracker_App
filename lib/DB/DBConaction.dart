@@ -88,7 +88,7 @@ class connection {
     return Habit.fromJson(habitById[0]);
   }
 
-  void updateDone(id) async {
+  updateDone(id) async {
     final db = await instance.database;
     Habit habit = await realHabitById(id);
 

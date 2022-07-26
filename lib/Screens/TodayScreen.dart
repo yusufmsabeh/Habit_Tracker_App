@@ -12,6 +12,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 class TodayScreen extends StatefulWidget {
   Function function;
+  List<Habit> habits;
   static final now = DateTime.now();
   final table = TableCalendar(
     calendarStyle: CalendarStyle(rangeHighlightColor: Colors.red),
@@ -21,40 +22,40 @@ class TodayScreen extends StatefulWidget {
     focusedDay: DateTime.now(),
   );
   double todayHieght;
-  TodayScreen(this.todayHieght, this.function);
+  TodayScreen(this.todayHieght, this.function, this.habits);
 
   @override
   State<TodayScreen> createState() => _TodayScreenState();
 }
 
 class _TodayScreenState extends State<TodayScreen> {
-  List<Habit> habits = [];
+  // List<Habit> habits = [];
 
-  readAllHabits() async {
-    habits = await connection.instance.realAllHaibtsByDay();
-    await Future.delayed(const Duration(seconds: 2), () {});
-    setState(() {});
-  }
+  // readAllHabits() async {
+  //   habits = await connection.instance.realAllHaibtsByDay();
+  //   await Future.delayed(const Duration(seconds: 2), () {});
+  //   setState(() {});
+  // }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    readAllHabits();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   readAllHabits();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        habits.isEmpty
+        widget.habits.isEmpty
             ? EmptyHabitScreen()
             : ListView.builder(
-                itemCount: habits.length,
+                itemCount: widget.habits.length,
                 itemBuilder: (context, index) {
                   return TodayHabit(
-                    habit: habits[index],
-                    function2: readAllHabits,
+                    habit: widget.habits[index],
+                    function2: widget.function,
                   );
                 }),
         AnimatedContainer(

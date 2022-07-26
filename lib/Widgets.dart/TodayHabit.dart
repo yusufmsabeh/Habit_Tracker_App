@@ -25,8 +25,7 @@ class TodayHabit extends StatelessWidget {
       onLongPress: () async {
         Habit habitFromDB = await connection.instance.realHabitById(habit.id);
 
-        connection.instance.updateDone(habit.id);
-        await Future.delayed(const Duration(seconds: 2), () {});
+        await connection.instance.updateDone(habit.id);
 
         habitFromDB = await connection.instance.realHabitById(habit.id);
         if (habitFromDB.done! >= habitFromDB.target) {

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:habit_tracker/DB/DBConaction.dart';
 import 'package:habit_tracker/Screens/AddHabitScreen.dart';
+import 'package:habit_tracker/model/habit.dart';
 
 import 'package:table_calendar/table_calendar.dart';
 
@@ -19,12 +21,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Habit> habits = [];
+  List<Habit> todayHabits = [];
   int currentIndex = 0;
   double tableHeight = 0;
   Widget CurrentLeading = Text("Habit list");
 
-  Refresh() {
+  Refresh() async {
+    habits = await connection.instance.readAllHabits();
+    todayHabits = await connection.instance.realAllHaibtsByDay();
     setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Refresh();
   }
 
   @override
@@ -160,8 +173,9 @@ class _HomePageState extends State<HomePage> {
             color: const Color.fromARGB(255, 240, 240, 240),
             child: currentIndex == 0
                 ? AllHabits(
+                    habits: habits,
                     function: Refresh,
                   )
-                : TodayScreen(tableHeight, Refresh)));
+                : TodayScreen(tableHeight, Refresh, habits)));
   }
 }

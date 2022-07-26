@@ -84,6 +84,8 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                       },
                       controller: nameController,
                       decoration: InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.cyan)),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.cyan),
                           ),
@@ -160,8 +162,15 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                         controller: tragetController,
                         keyboardType: TextInputType.numberWithOptions(),
                         decoration: InputDecoration(
-                            hintText: "Target",
-                            focusColor: Color.fromARGB(255, 145, 197, 255)))),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.cyan),
+                            ),
+                            hintText: "How many times a habit needs to be done",
+                            hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 169, 169, 169),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.cyan))))),
                 const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,

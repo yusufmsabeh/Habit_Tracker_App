@@ -11,36 +11,38 @@ import 'package:habit_tracker/model/habit.dart';
 
 class AllHabits extends StatefulWidget {
   Function function;
-  AllHabits({required this.function, Key? key}) : super(key: key);
+  List<Habit> habits;
+  AllHabits({required this.function, required this.habits, Key? key})
+      : super(key: key);
 
   @override
   State<AllHabits> createState() => _AllHabitsState();
 }
 
 class _AllHabitsState extends State<AllHabits> {
-  List<Habit> habits = [];
-  void readAllHabits() async {
-    habits = await connection.instance.readAllHabits();
+  // List<Habit> habits = [];
+  // void readAllHabits() async {
+  //   habits = await connection.instance.readAllHabits();
 
-    setState(() {});
-  }
+  //   setState(() {});
+  // }
 
-  @override
-  void initState() {
-    super.initState();
-    readAllHabits();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   readAllHabits();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 40.w),
       child: ListView.builder(
-          itemCount: habits.length,
+          itemCount: widget.habits.length,
           itemBuilder: ((context, index) => HabitWidget(
-                habit: habits[index],
+                habit: widget.habits[index],
                 function: widget.function,
-                function2: readAllHabits,
+                function2: widget.function,
               ))),
     );
   }
