@@ -70,7 +70,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
           key: _formState,
           child: Container(
             margin: EdgeInsets.all(50.w),
-            height: context.locale.toString() == 'en' ? 1250.h : 1400.h,
+            height: context.locale.toString() == 'en' ? 1250.h : 1420.h,
             child: Column(
               children: [
                 Container(
@@ -85,7 +85,9 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                 ),
                 Container(
                   // margin: EdgeInsets.only(bottom: 20.w),
-                  alignment: Alignment.centerLeft,
+                  alignment: context.locale.toString() == 'en'
+                      ? Alignment.centerLeft
+                      : Alignment.centerRight,
                   child: Text(
                     "Name".tr(),
                     style: TextStyle(
@@ -113,7 +115,9 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                     )),
                 Container(
                   // margin: EdgeInsets.only(bottom: 20.w),
-                  alignment: Alignment.centerLeft,
+                  alignment: context.locale.toString() == 'en'
+                      ? Alignment.centerLeft
+                      : Alignment.centerRight,
                   child: Text(
                     "Schedule".tr(),
                     style: TextStyle(
@@ -129,7 +133,9 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                 ),
                 Container(
                     // margin: EdgeInsets.only(bottom: 20.w),
-                    alignment: Alignment.centerLeft,
+                    alignment: context.locale.toString() == 'en'
+                        ? Alignment.centerLeft
+                        : Alignment.centerRight,
                     child: Text(
                       "Target".tr(),
                       style: TextStyle(

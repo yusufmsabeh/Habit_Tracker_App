@@ -93,11 +93,11 @@ class _HomePageState extends State<HomePage> {
           leading: currentIndex == 1
               ? GestureDetector(
                   onTap: () {
-                    tableHeight == 0 ? tableHeight = 500.h : tableHeight = 0;
+                    tableHeight == 0 ? tableHeight = 500.h : tableHeight = 0.h;
                     setState(() {});
                   },
                   child: Container(
-                    margin: EdgeInsets.all(40.w),
+                    margin: EdgeInsets.symmetric(horizontal: 40.w),
                     child: Row(
                       children: [
                         Text(

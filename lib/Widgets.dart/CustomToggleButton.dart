@@ -59,7 +59,9 @@ class CustomToggleButton extends FormField<bool> {
                             style: TextStyle(
                                 color: Color.fromARGB(255, 194, 32, 20),
                                 fontSize: 36.sp),
-                            textAlign: TextAlign.left,
+                            textAlign: State.context.locale.toString() == 'en'
+                                ? TextAlign.left
+                                : TextAlign.right,
                           ),
                         )
                       : SizedBox()
