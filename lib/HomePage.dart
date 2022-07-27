@@ -1,20 +1,19 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+// import 'package:flutter/src/foundation/key.dart';
+// import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_tracker/DB/DBConaction.dart';
 import 'package:habit_tracker/Screens/AddHabitScreen.dart';
 import 'package:habit_tracker/model/habit.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 import 'Screens/AllHabits.dart';
 import 'Screens/TodayScreen.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -28,14 +27,14 @@ class _HomePageState extends State<HomePage> {
   Widget CurrentLeading = Text("HabitList".tr());
 
   Refresh() async {
-    habits = await connection.instance.readAllHabits();
     todayHabits = await connection.instance.realAllHaibtsByDay();
+    habits = await connection.instance.readAllHabits();
+
     setState(() {});
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Refresh();
   }
@@ -69,7 +68,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: null,
               child: Text(
                 "AddNewHabit".tr(),
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
             ),
           ),
@@ -80,11 +79,11 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   setState(() {
                     context.locale.toString() == 'ar'
-                        ? context.setLocale(Locale('en'))
-                        : context.setLocale(Locale('ar'));
+                        ? context.setLocale(const Locale('en'))
+                        : context.setLocale(const Locale('ar'));
                   });
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.language,
                   color: Colors.black,
                 ))
@@ -103,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                         Text(
                           "TodayList".tr(),
                           style: TextStyle(
-                              color: Color.fromARGB(255, 112, 112, 112),
+                              color: const Color.fromARGB(255, 112, 112, 112),
                               fontWeight: FontWeight.bold,
                               fontSize: 70.sp),
                         ),
@@ -120,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     'HabitList'.tr(),
                     style: TextStyle(
-                        color: Color.fromARGB(255, 112, 112, 112),
+                        color: const Color.fromARGB(255, 112, 112, 112),
                         fontWeight: FontWeight.bold,
                         fontSize: 70.sp),
                   )),
@@ -184,6 +183,6 @@ class _HomePageState extends State<HomePage> {
                     habits: habits,
                     function: Refresh,
                   )
-                : TodayScreen(tableHeight, Refresh, habits)));
+                : TodayScreen(tableHeight, Refresh, todayHabits)));
   }
 }

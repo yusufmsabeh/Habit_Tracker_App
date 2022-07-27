@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
+//import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_tracker/DB/DBConaction.dart';
@@ -32,55 +32,52 @@ class HabitWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(40.r), color: Colors.white),
       child: Column(
         children: [
-          Container(
-            // margin: EdgeInsets.only(bottom: 100.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: () async {
-                    await connection.instance.deleteHabit(habit.id);
-                    function2();
-                    function();
-                  },
-                  child: Container(
-                    margin: EdgeInsets.all(30.w),
-                    height: 60.h,
-                    width: 60.w,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage('assets/delete.png'))),
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  await connection.instance.deleteHabit(habit.id);
+                  function2();
+                  function();
+                },
+                child: Container(
+                  margin: EdgeInsets.all(30.w),
+                  height: 60.h,
+                  width: 60.w,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage('assets/delete.png'))),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AddHabitScreen(
-                            function: function,
-                            habit: habit,
-                          );
-                        });
-                  },
-                  child: Container(
-                    margin: EdgeInsets.all(30.w),
-                    height: 60.h,
-                    width: 60.w,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage('assets/edit.png'))),
-                  ),
-                )
-              ],
-            ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AddHabitScreen(
+                          function: function,
+                          habit: habit,
+                        );
+                      });
+                },
+                child: Container(
+                  margin: EdgeInsets.all(30.w),
+                  height: 60.h,
+                  width: 60.w,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage('assets/edit.png'))),
+                ),
+              )
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                   width: 500.w,
                   height: 300.h,
                   child: SfRadialGauge(
@@ -96,7 +93,7 @@ class HabitWidget extends StatelessWidget {
                           ],
                           pointers: <GaugePointer>[
                             RangePointer(
-                              color: Color.fromARGB(255, 117, 184, 213),
+                              color: const Color.fromARGB(255, 117, 184, 213),
                               value: habit.done! / 1,
                               cornerStyle: CornerStyle.bothCurve,
                               width: 0.2,
@@ -107,7 +104,7 @@ class HabitWidget extends StatelessWidget {
                           maximum: habit.target / 1,
                           showLabels: false,
                           showTicks: false,
-                          axisLineStyle: AxisLineStyle(
+                          axisLineStyle: const AxisLineStyle(
                               thickness: 0.2,
                               cornerStyle: CornerStyle.bothCurve,
                               color: Color.fromARGB(255, 240, 240, 240),

@@ -66,9 +66,11 @@ class connection {
 
     final habitsId = await db.query('habits_days',
         columns: ['id'], where: 'day =?', whereArgs: [DateTime.now().weekday]);
+
     List<dynamic> idies = habitsId.map((e) => e['id']).toList();
     List<Habit> habits = [];
     String habitIdColumn = Habitfields.id;
+
     idies.forEach((element) async {
       final habitById = await db.query(tableHabit,
           columns: Habitfields.values,
@@ -76,6 +78,7 @@ class connection {
           whereArgs: [element as int]);
       habits.add(Habit.fromJson(habitById[0]));
     });
+
     return habits;
   }
 

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +15,7 @@ class CustomToggleButton extends FormField<bool> {
                   Container(
                     padding: EdgeInsets.zero,
                     decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 169, 169, 169),
+                        color: const Color.fromARGB(255, 169, 169, 169),
                         borderRadius: BorderRadius.circular(25.r)),
                     child: ToggleButtons(
                         onPressed: (index) {
@@ -28,7 +26,7 @@ class CustomToggleButton extends FormField<bool> {
                         borderWidth: 15.h,
                         color: Colors.white,
                         selectedColor: Colors.white,
-                        fillColor: Color.fromARGB(255, 108, 186, 212),
+                        fillColor: const Color.fromARGB(255, 108, 186, 212),
                         borderRadius: BorderRadius.circular(10.r),
                         constraints: BoxConstraints(
                           minWidth: State.context.locale.toString == 'en'
@@ -40,6 +38,7 @@ class CustomToggleButton extends FormField<bool> {
                               (MediaQuery.of(State.context).size.height - 36) /
                                   20,
                         ),
+                        isSelected: _isSelected,
                         children: [
                           Text('Mon'.tr()),
                           Text('Tue'.tr()),
@@ -48,8 +47,7 @@ class CustomToggleButton extends FormField<bool> {
                           Text('Fri'.tr()),
                           Text('Sat'.tr()),
                           Text('Sun'.tr()),
-                        ],
-                        isSelected: _isSelected),
+                        ]),
                   ),
                   State.hasError
                       ? SizedBox(
@@ -57,14 +55,14 @@ class CustomToggleButton extends FormField<bool> {
                           child: Text(
                             State.errorText!,
                             style: TextStyle(
-                                color: Color.fromARGB(255, 194, 32, 20),
+                                color: const Color.fromARGB(255, 194, 32, 20),
                                 fontSize: 36.sp),
                             textAlign: State.context.locale.toString() == 'en'
                                 ? TextAlign.left
                                 : TextAlign.right,
                           ),
                         )
-                      : SizedBox()
+                      : const SizedBox()
                 ],
               );
             });

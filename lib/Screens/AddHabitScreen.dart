@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+// import 'package:flutter/src/foundation/key.dart';
+// import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_tracker/DB/DBConaction.dart';
 import 'package:habit_tracker/Widgets.dart/CustomToggleButton.dart';
@@ -42,9 +42,9 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
 
   String? ValidaitToggleButton(x) {
     bool x = false;
-    _isSelected.forEach((element) {
+    for (var element in _isSelected) {
       if (element) x = true;
-    });
+    }
 
     if (!x) {
       return "Required".tr();
@@ -53,7 +53,6 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loadHabitIntoControllers();
   }
@@ -78,7 +77,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                   child: Text(
                     "AddHabit".tr(),
                     style: TextStyle(
-                        color: Color.fromARGB(255, 145, 197, 255),
+                        color: const Color.fromARGB(255, 145, 197, 255),
                         fontWeight: FontWeight.bold,
                         fontSize: 80.sp),
                   ),
@@ -92,7 +91,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                     "Name".tr(),
                     style: TextStyle(
                         fontSize: 50.sp,
-                        color: Color.fromARGB(255, 183, 183, 183)),
+                        color: const Color.fromARGB(255, 183, 183, 183)),
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -105,13 +104,13 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                       },
                       controller: nameController,
                       decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.cyan)),
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.cyan),
                           ),
                           hintText: "Name".tr(),
-                          focusColor: Color.fromARGB(255, 145, 197, 255)),
+                          focusColor: const Color.fromARGB(255, 145, 197, 255)),
                     )),
                 Container(
                   // margin: EdgeInsets.only(bottom: 20.w),
@@ -122,7 +121,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                     "Schedule".tr(),
                     style: TextStyle(
                         fontSize: 50.sp,
-                        color: Color.fromARGB(255, 183, 183, 183)),
+                        color: const Color.fromARGB(255, 183, 183, 183)),
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -140,7 +139,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                       "Target".tr(),
                       style: TextStyle(
                           fontSize: 50.sp,
-                          color: Color.fromARGB(255, 183, 183, 183)),
+                          color: const Color.fromARGB(255, 183, 183, 183)),
                     )),
                 Container(
                     margin: EdgeInsets.only(bottom: 90.w),
@@ -153,16 +152,16 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                             return 'Zerofield'.tr();
                         },
                         controller: tragetController,
-                        keyboardType: TextInputType.numberWithOptions(),
+                        keyboardType: const TextInputType.numberWithOptions(),
                         decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
+                            enabledBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.cyan),
                             ),
                             hintText: "TargetHing".tr(),
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                               color: Color.fromARGB(255, 169, 169, 169),
                             ),
-                            focusedBorder: UnderlineInputBorder(
+                            focusedBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.cyan))))),
                 const Spacer(),
                 Row(
@@ -174,7 +173,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                         },
                         child: Text(
                           "Cancel".tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Color.fromARGB(255, 145, 197, 255),
                               fontWeight: FontWeight.bold),
                         )),
@@ -198,7 +197,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                               widget.habit!.name = nameController.text;
                               widget.habit!.target =
                                   int.parse(tragetController.text);
-                              print(widget.habit!.done);
+
                               await connection.instance
                                   .updateHabit(widget.habit!, daysToInsert);
                             }
@@ -209,7 +208,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                         },
                         child: Text(
                           'Save'.tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Color.fromARGB(255, 145, 197, 255),
                               fontWeight: FontWeight.bold),
                         ))

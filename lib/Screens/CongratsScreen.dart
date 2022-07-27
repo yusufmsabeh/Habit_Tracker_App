@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+// import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CongratsScreen extends StatelessWidget {
@@ -23,29 +23,36 @@ class CongratsScreen extends StatelessWidget {
             children: [
               Text(
                 'Congrats'.tr(),
-                style: TextStyle(color: Color.fromARGB(255, 126, 126, 126)),
+                style:
+                    const TextStyle(color: Color.fromARGB(255, 126, 126, 126)),
               ),
               SizedBox(
                 height: 40.h,
               ),
-              Text(
-                habitName,
-                style: TextStyle(
-                    color: Color.fromARGB(255, 239, 194, 44),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 100.sp),
+              SizedBox(
+                width: double.infinity,
+                height: 200.h,
+                child: Text(
+                  habitName,
+                  style: TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      color: const Color.fromARGB(255, 239, 194, 44),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 100.sp),
+                  textAlign: TextAlign.center,
+                ),
               ),
               Container(
                 width: 600.w,
                 height: 600.h,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/CompTask.png'))),
               ),
               Text(
                 'Completed'.tr(),
                 style: TextStyle(
-                    color: Color.fromARGB(255, 126, 189, 213),
+                    color: const Color.fromARGB(255, 126, 189, 213),
                     fontWeight: FontWeight.bold,
                     fontSize: 100.sp),
               ),
@@ -54,8 +61,8 @@ class CongratsScreen extends StatelessWidget {
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary:
-                        Color.fromARGB(255, 228, 75, 77), // Background color
+                    primary: const Color.fromARGB(
+                        255, 228, 75, 77), // Background color
                   ),
                   onPressed: () => Navigator.of(context).pop(),
                   child: SizedBox(
