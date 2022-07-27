@@ -14,7 +14,7 @@ class connection {
 
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await _initDB('habit_database9');
+    _database = await _initDB('habit_database10');
     return _database!;
   }
 
@@ -34,9 +34,11 @@ class connection {
     final nameType = 'TEXT';
     final targetType = 'INTEGER';
     final doneType = 'INTEGER';
+    final badgeType = 'TEXT';
     String habitId = Habitfields.id;
+
     await db.execute(
-        'CREATE TABLE $tableHabit (${Habitfields.id} $idType ,${Habitfields.name} $nameType,${Habitfields.target} $targetType ,${Habitfields.done} $doneType )');
+        'CREATE TABLE $tableHabit (${Habitfields.id} $idType ,${Habitfields.name} $nameType,${Habitfields.target} $targetType ,${Habitfields.done} $doneType,${Habitfields.badge} $badgeType )');
     await db.execute(
         'CREATE TABLE habits_days (id INTEGER , day INTEGER, FOREIGN KEY (id) REFERENCES $tableHabit($habitId) )');
   }

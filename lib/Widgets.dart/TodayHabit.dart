@@ -21,9 +21,11 @@ class TodayHabit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double habitPrograss = (habit.done! / habit.target) * 100;
+    String path = habit.badge;
 
     return InkWell(
       onTap: () async {
+        log(DateTime.now().toString());
         await connection.instance.updateDone(habit.id);
         if (habit.done! >= habit.target - 1) {
           await connection.instance.deleteHabit(habit.id);
@@ -64,10 +66,9 @@ class TodayHabit extends StatelessWidget {
                   : EdgeInsets.only(left: 40.w),
               width: 350.w,
               height: 350.h,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('assets/cards.png'),
-                      fit: BoxFit.contain)),
+                      image: AssetImage(habit.badge), fit: BoxFit.contain)),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,

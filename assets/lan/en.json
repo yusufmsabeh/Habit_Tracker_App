@@ -25,5 +25,6 @@
     "DoneAndDelete": "Done and Delete",
     "YouMadeProgress": "You made Progress",
     "Required": "This field is required",
-    "Zerofield": "The target can not be zero"
+    "Zerofield": "The target can not be zero",
+    "Badge": "Badge"
 }

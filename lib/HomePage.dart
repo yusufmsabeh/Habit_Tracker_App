@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/src/foundation/key.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker/DB/DBConaction.dart';
 import 'package:habit_tracker/Screens/AddHabitScreen.dart';
 import 'package:habit_tracker/model/habit.dart';
@@ -24,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   List<Habit> todayHabits = [];
   int currentIndex = 0;
   double tableHeight = 0;
-  Widget CurrentLeading = Text("HabitList".tr());
+  //Widget CurrentLeading = Text("HabitList".tr());
 
   Refresh() async {
     todayHabits = await connection.instance.realAllHaibtsByDay();
@@ -68,7 +69,8 @@ class _HomePageState extends State<HomePage> {
               onPressed: null,
               child: Text(
                 "AddNewHabit".tr(),
-                style: const TextStyle(color: Colors.black),
+                style: GoogleFonts.roboto(
+                    textStyle: TextStyle(color: Colors.black)),
               ),
             ),
           ),
@@ -88,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.black,
                 ))
           ],
-          leadingWidth: 500.w,
+          leadingWidth: 600.w,
           leading: currentIndex == 1
               ? GestureDetector(
                   onTap: () {
@@ -115,7 +117,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 )
               : Container(
-                  margin: EdgeInsets.all(30.w),
+                  width: double.infinity,
+                  margin: EdgeInsets.only(top: 30.w, right: 30.w),
                   child: Text(
                     'HabitList'.tr(),
                     style: TextStyle(

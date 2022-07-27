@@ -21,7 +21,13 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
   final _formState = GlobalKey<FormState>();
 
   List<bool> _isSelected = List.generate(7, (index) => false);
-
+  List<String> itemsDropDown = [
+    'assets/cards.png',
+    'assets/sports.png',
+    'assets/book.png',
+    'assets/watter.png'
+  ];
+  String? selectedItem;
   final nameController = TextEditingController();
   final tragetController = TextEditingController();
 
@@ -54,6 +60,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
   @override
   void initState() {
     super.initState();
+    selectedItem = itemsDropDown[0];
     loadHabitIntoControllers();
   }
 
@@ -163,6 +170,40 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                             ),
                             focusedBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.cyan))))),
+                Row(
+                  children: [
+                    Container(
+                        // margin: EdgeInsets.only(bottom: 20.w),
+                        alignment: context.locale.toString() == 'en'
+                            ? Alignment.centerLeft
+                            : Alignment.centerRight,
+                        child: Text(
+                          "Badge".tr(),
+                          style: TextStyle(
+                              fontSize: 50.sp,
+                              color: const Color.fromARGB(255, 183, 183, 183)),
+                        )),
+                    SizedBox(
+                      width: 40.w,
+                    ),
+                    DropdownButtonHideUnderline(
+                        child: DropdownButton<dynamic>(
+                      value: selectedItem,
+                      onChanged: (value) {
+                        selectedItem = value;
+                        setState(() {});
+                      },
+                      items: [
+                        ...itemsDropDown.map((e) {
+                          return DropdownMenuItem(
+                            child: Image.asset(e),
+                            value: e,
+                          );
+                        }).toList()
+                      ],
+                    ))
+                  ],
+                ),
                 const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -190,6 +231,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                             if (widget.habit == null) {
                               await connection.instance.insertHabit(
                                   Habit(
+                                      badge: selectedItem!,
                                       name: nameController.text,
                                       target: int.parse(tragetController.text)),
                                   daysToInsert);
