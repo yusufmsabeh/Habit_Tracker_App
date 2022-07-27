@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_tracker/DB/DBConaction.dart';
+import 'package:habit_tracker/Widgets.dart/CustomToggleButton.dart';
 import 'package:habit_tracker/model/habit.dart';
 
 class AddHabitScreen extends StatefulWidget {
@@ -32,6 +34,23 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
     setState(() {});
   }
 
+  void changeIsSeletedList(int index) {
+    setState(() {
+      _isSelected[index] = !_isSelected[index];
+    });
+  }
+
+  String? ValidaitToggleButton(x) {
+    bool x = false;
+    _isSelected.forEach((element) {
+      if (element) x = true;
+    });
+
+    if (!x) {
+      return "Required".tr();
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -51,13 +70,13 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
           key: _formState,
           child: Container(
             margin: EdgeInsets.all(50.w),
-            height: 1250.h,
+            height: context.locale.toString() == 'en' ? 1250.h : 1400.h,
             child: Column(
               children: [
                 Container(
                   margin: EdgeInsets.all(100.w),
                   child: Text(
-                    "Add Habit",
+                    "AddHabit".tr(),
                     style: TextStyle(
                         color: Color.fromARGB(255, 145, 197, 255),
                         fontWeight: FontWeight.bold,
@@ -68,7 +87,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                   // margin: EdgeInsets.only(bottom: 20.w),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Name",
+                    "Name".tr(),
                     style: TextStyle(
                         fontSize: 50.sp,
                         color: Color.fromARGB(255, 183, 183, 183)),
@@ -80,7 +99,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                     alignment: Alignment.centerLeft,
                     child: TextFormField(
                       validator: (value) {
-                        if (value!.isEmpty) return 'This field is required';
+                        if (value!.isEmpty) return 'Required'.tr();
                       },
                       controller: nameController,
                       decoration: InputDecoration(
@@ -89,54 +108,22 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.cyan),
                           ),
-                          hintText: "Name",
+                          hintText: "Name".tr(),
                           focusColor: Color.fromARGB(255, 145, 197, 255)),
                     )),
                 Container(
                   // margin: EdgeInsets.only(bottom: 20.w),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Schedule",
+                    "Schedule".tr(),
                     style: TextStyle(
                         fontSize: 50.sp,
                         color: Color.fromARGB(255, 183, 183, 183)),
                     textAlign: TextAlign.left,
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.zero,
-                  decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 169, 169, 169),
-                      borderRadius: BorderRadius.circular(25.r)),
-                  child: ToggleButtons(
-                      onPressed: (index) {
-                        setState(() {
-                          _isSelected[index] = !_isSelected[index];
-                        });
-                      },
-                      borderColor: Colors.white,
-                      selectedBorderColor: Colors.white,
-                      borderWidth: 15.h,
-                      color: Colors.white,
-                      selectedColor: Colors.white,
-                      fillColor: Color.fromARGB(255, 108, 186, 212),
-                      borderRadius: BorderRadius.circular(10.r),
-                      constraints: BoxConstraints(
-                          minHeight:
-                              (MediaQuery.of(context).size.height - 36) / 20,
-                          minWidth:
-                              (MediaQuery.of(context).size.width - 36) / 9),
-                      children: [
-                        Text('Mon'),
-                        Text('Tue'),
-                        Text('Wed'),
-                        Text('Thu'),
-                        Text('Fri'),
-                        Text('Sat'),
-                        Text('Sun '),
-                      ],
-                      isSelected: _isSelected),
-                ),
+                CustomToggleButton(
+                    ValidaitToggleButton, _isSelected, changeIsSeletedList),
                 Container(
                   margin: EdgeInsets.only(bottom: 90.w),
                 ),
@@ -144,7 +131,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                     // margin: EdgeInsets.only(bottom: 20.w),
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Target",
+                      "Target".tr(),
                       style: TextStyle(
                           fontSize: 50.sp,
                           color: Color.fromARGB(255, 183, 183, 183)),
@@ -155,9 +142,9 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                     child: TextFormField(
                         validator: (value) {
                           if (value!.isEmpty)
-                            return 'This field is required';
+                            return 'Required'.tr();
                           else if (int.parse(value) == 0)
-                            return 'The target can not be zero';
+                            return 'Zerofield'.tr();
                         },
                         controller: tragetController,
                         keyboardType: TextInputType.numberWithOptions(),
@@ -165,7 +152,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.cyan),
                             ),
-                            hintText: "How many times a habit needs to be done",
+                            hintText: "TargetHing".tr(),
                             hintStyle: TextStyle(
                               color: Color.fromARGB(255, 169, 169, 169),
                             ),
@@ -180,7 +167,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                           Navigator.pop(context);
                         },
                         child: Text(
-                          "Cancel",
+                          "Cancel".tr(),
                           style: TextStyle(
                               color: Color.fromARGB(255, 145, 197, 255),
                               fontWeight: FontWeight.bold),
@@ -215,7 +202,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                           }
                         },
                         child: Text(
-                          'SAVE',
+                          'Save'.tr(),
                           style: TextStyle(
                               color: Color.fromARGB(255, 145, 197, 255),
                               fontWeight: FontWeight.bold),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -18,14 +19,14 @@ class EmptyHabitScreen extends StatelessWidget {
                   fit: BoxFit.cover, image: AssetImage('assets/HomePage.png'))),
         ),
         Text(
-          "Noting to do today",
+          "NoHabits".tr(),
           style: TextStyle(
               fontSize: 100.sp,
               fontWeight: FontWeight.bold,
               color: const Color.fromARGB(255, 20, 176, 191)),
         ),
         Text(
-          "Add Something?",
+          "AddSomething".tr(),
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 100.sp,

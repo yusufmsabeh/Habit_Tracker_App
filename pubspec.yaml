@@ -40,6 +40,7 @@ dependencies:
   sqflite: ^2.0.3
   syncfusion_flutter_gauges: ^20.2.38
   fluttertoast: ^8.0.9
+  easy_localization: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +75,8 @@ flutter:
     - assets/delete.png
     - assets/cards.png
     - assets/CompTask.png
+    - assets/lan/ar.json
+    - assets/lan/en.json
 
 
 

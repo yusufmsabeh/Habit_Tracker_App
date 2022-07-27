@@ -1,12 +1,21 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_tracker/DB/DBConaction.dart';
 import 'package:habit_tracker/HomePage.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
   // connection.instance.initDB('habit_database7');
-  runApp(const MyApp());
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  // runApp(const MyApp());
+  runApp(EasyLocalization(
+    child: const MyApp(),
+    supportedLocales: [Locale('en'), Locale('ar')],
+    path: 'assets/lan',
+    fallbackLocale: Locale('en'),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,6 +27,9 @@ class MyApp extends StatelessWidget {
         designSize: const Size(1080, 1920),
         builder: (context, child) {
           return MaterialApp(
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
             debugShowCheckedModeBanner: false,
             home: HomePage(),
           );

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -37,7 +38,7 @@ class TodayHabit extends StatelessWidget {
                   ));
         }
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("You made progress")));
+            .showSnackBar(SnackBar(content: Text("YouMadeProgress".tr())));
         function2();
         // function();
       },
@@ -66,7 +67,7 @@ class TodayHabit extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 80.sp),
               ),
               Text(
-                'Progress: ${habitPrograss.floor()} %',
+                'Preogresss'.tr() + ': ${habitPrograss.floor()} %',
               )
             ],
           )

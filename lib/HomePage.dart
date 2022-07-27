@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_tracker/DB/DBConaction.dart';
 import 'package:habit_tracker/Screens/AddHabitScreen.dart';
 import 'package:habit_tracker/model/habit.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'Screens/AllHabits.dart';
@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   List<Habit> todayHabits = [];
   int currentIndex = 0;
   double tableHeight = 0;
-  Widget CurrentLeading = Text("Habit list");
+  Widget CurrentLeading = Text("HabitList".tr());
 
   Refresh() async {
     habits = await connection.instance.readAllHabits();
@@ -53,7 +53,9 @@ class _HomePageState extends State<HomePage> {
                     ));
           }),
           child: Container(
-            margin: EdgeInsets.only(right: 290.w),
+            margin: context.locale.toString() == 'en'
+                ? EdgeInsets.only(right: 290.w)
+                : EdgeInsets.only(left: 290.w),
             height: 100.h,
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             decoration: BoxDecoration(boxShadow: const [
@@ -63,21 +65,27 @@ class _HomePageState extends State<HomePage> {
                 blurRadius: 6.0,
               ),
             ], color: Colors.white, borderRadius: BorderRadius.circular(100.r)),
-            child: const TextButton(
+            child: TextButton(
               onPressed: null,
               child: Text(
-                "+ Add new habit",
+                "AddNewHabit".tr(),
                 style: TextStyle(color: Colors.black),
               ),
             ),
           ),
         ),
         appBar: AppBar(
-          actions: const [
+          actions: [
             IconButton(
-                onPressed: null,
+                onPressed: () {
+                  setState(() {
+                    context.locale.toString() == 'ar'
+                        ? context.setLocale(Locale('en'))
+                        : context.setLocale(Locale('ar'));
+                  });
+                },
                 icon: Icon(
-                  Icons.more_vert_outlined,
+                  Icons.language,
                   color: Colors.black,
                 ))
           ],
@@ -93,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       children: [
                         Text(
-                          "Today",
+                          "TodayList".tr(),
                           style: TextStyle(
                               color: Color.fromARGB(255, 112, 112, 112),
                               fontWeight: FontWeight.bold,
@@ -110,7 +118,7 @@ class _HomePageState extends State<HomePage> {
               : Container(
                   margin: EdgeInsets.all(30.w),
                   child: Text(
-                    'Habit list',
+                    'HabitList'.tr(),
                     style: TextStyle(
                         color: Color.fromARGB(255, 112, 112, 112),
                         fontWeight: FontWeight.bold,
@@ -140,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                             child: Image.asset(currentIndex == 0
                                 ? 'assets/menuSelected.png'
                                 : 'assets/menu.png')),
-                        const Text("All habits")
+                        Text("AllHabits".tr())
                       ],
                     ),
                   ),
@@ -160,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                             child: Image.asset(currentIndex == 1
                                 ? 'assets/todaySelected.png'
                                 : 'assets/today.png')),
-                        const Text("Today")
+                        Text("TodayList".tr())
                       ],
                     ),
                   )

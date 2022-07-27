@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -21,7 +22,7 @@ class CongratsScreen extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                'Congratulation!',
+                'Congrats'.tr(),
                 style: TextStyle(color: Color.fromARGB(255, 126, 126, 126)),
               ),
               SizedBox(
@@ -35,14 +36,14 @@ class CongratsScreen extends StatelessWidget {
                     fontSize: 100.sp),
               ),
               Container(
-                width: 700.w,
-                height: 700.h,
+                width: 600.w,
+                height: 600.h,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/CompTask.png'))),
               ),
               Text(
-                'Is Completed',
+                'Completed'.tr(),
                 style: TextStyle(
                     color: Color.fromARGB(255, 126, 189, 213),
                     fontWeight: FontWeight.bold,
@@ -63,7 +64,7 @@ class CongratsScreen extends StatelessWidget {
                       child: Align(
                           alignment: Alignment.center,
                           child: Text(
-                            'done and Delete',
+                            'DoneAndDelete'.tr(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 50.sp),
                           ))))
