@@ -79,8 +79,10 @@ flutter:
     - assets/book.png
     - assets/sports.png
     - assets/watter.png
+    - assets/healthy-food.png
     - assets/lan/ar.json
     - assets/lan/en.json
+    
 
   
 

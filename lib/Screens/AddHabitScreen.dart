@@ -25,7 +25,15 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
     'assets/cards.png',
     'assets/sports.png',
     'assets/book.png',
-    'assets/watter.png'
+    'assets/watter.png',
+    'assets/healthy-food.png'
+  ];
+  List<String> itemsDropDownString = [
+    'other',
+    'sports',
+    'studying',
+    'drink Water',
+    'eat healthy food'
   ];
   String? selectedItem;
   final nameController = TextEditingController();
@@ -36,6 +44,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
       nameController.text = widget.habit!.name;
       tragetController.text = widget.habit!.target.toString();
       _isSelected = await connection.instance.getHabitDays(widget.habit!.id);
+      selectedItem = widget.habit!.badge;
     }
     setState(() {});
   }
@@ -76,7 +85,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
           key: _formState,
           child: Container(
             margin: EdgeInsets.all(50.w),
-            height: context.locale.toString() == 'en' ? 1250.h : 1420.h,
+            height: context.locale.toString() == 'en' ? 1400.h : 1550.h,
             child: Column(
               children: [
                 Container(
@@ -196,7 +205,16 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                       items: [
                         ...itemsDropDown.map((e) {
                           return DropdownMenuItem(
-                            child: Image.asset(e),
+                            child: Row(
+                              children: [
+                                Image.asset(e),
+                                SizedBox(
+                                  width: 40.w,
+                                ),
+                                Text(itemsDropDownString[
+                                    itemsDropDown.indexOf(e)])
+                              ],
+                            ),
                             value: e,
                           );
                         }).toList()
@@ -236,6 +254,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                       target: int.parse(tragetController.text)),
                                   daysToInsert);
                             } else {
+                              widget.habit!.badge = selectedItem!;
                               widget.habit!.name = nameController.text;
                               widget.habit!.target =
                                   int.parse(tragetController.text);

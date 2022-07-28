@@ -142,16 +142,19 @@ class _HomePageState extends State<HomePage> {
                       currentIndex = 0;
                       setState(() {});
                     },
-                    child: Column(
-                      children: [
-                        SizedBox(
-                            width: 70.w,
-                            height: 70.h,
-                            child: Image.asset(currentIndex == 0
-                                ? 'assets/menuSelected.png'
-                                : 'assets/menu.png')),
-                        Text("AllHabits".tr())
-                      ],
+                    child: SizedBox(
+                      width: 200.w,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                              width: 70.w,
+                              height: 70.h,
+                              child: Image.asset(currentIndex == 0
+                                  ? 'assets/menuSelected.png'
+                                  : 'assets/menu.png')),
+                          Text("AllHabits".tr())
+                        ],
+                      ),
                     ),
                   ),
                   const Spacer(
@@ -162,16 +165,19 @@ class _HomePageState extends State<HomePage> {
                       currentIndex = 1;
                       setState(() {});
                     },
-                    child: Column(
-                      children: [
-                        SizedBox(
-                            width: 70.w,
-                            height: 70.h,
-                            child: Image.asset(currentIndex == 1
-                                ? 'assets/todaySelected.png'
-                                : 'assets/today.png')),
-                        Text("TodayList".tr())
-                      ],
+                    child: SizedBox(
+                      width: 200.w,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                              width: 70.w,
+                              height: 70.h,
+                              child: Image.asset(currentIndex == 1
+                                  ? 'assets/todaySelected.png'
+                                  : 'assets/today.png')),
+                          Text("TodayList".tr())
+                        ],
+                      ),
                     ),
                   )
                 ],
