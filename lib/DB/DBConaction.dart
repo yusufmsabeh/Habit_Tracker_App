@@ -84,6 +84,27 @@ class connection {
     return habits;
   }
 
+  Future<List<Habit>> realAllHaibtsBySpecDay(DateTime dateTime) async {
+    final db = await instance.database;
+
+    final habitsId = await db.query('habits_days',
+        columns: ['id'], where: 'day =?', whereArgs: [dateTime.weekday]);
+
+    List<dynamic> idies = habitsId.map((e) => e['id']).toList();
+    List<Habit> habits = [];
+    String habitIdColumn = Habitfields.id;
+
+    idies.forEach((element) async {
+      final habitById = await db.query(tableHabit,
+          columns: Habitfields.values,
+          where: '$habitIdColumn = ?',
+          whereArgs: [element as int]);
+      habits.add(Habit.fromJson(habitById[0]));
+    });
+
+    return habits;
+  }
+
   Future<Habit> realHabitById(id) async {
     final db = await instance.database;
     String idColumn = Habitfields.id;

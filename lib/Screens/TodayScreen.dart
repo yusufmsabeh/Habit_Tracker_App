@@ -11,17 +11,21 @@ import 'package:table_calendar/table_calendar.dart';
 
 class TodayScreen extends StatefulWidget {
   Function function;
+  Function function2;
   List<Habit> habits;
-  static final now = DateTime.now();
-  final table = TableCalendar(
-    calendarStyle: const CalendarStyle(rangeHighlightColor: Colors.red),
-    rowHeight: 80.h,
-    firstDay: DateTime.utc(2010, 10, 16),
-    lastDay: DateTime.utc(2030, 3, 14),
-    focusedDay: DateTime.now(),
-  );
+  DateTime dateTime;
+  // static final now = DateTime.now();
+  // final table = TableCalendar(
+  //   calendarStyle: const CalendarStyle(rangeHighlightColor: Colors.red),
+  //   rowHeight: 80.h,
+  //   firstDay: DateTime.utc(2010, 10, 16),
+  //   lastDay: DateTime.utc(2030, 3, 14),
+  //   focusedDay: DateTime.now(),
+  //   onDaySelected: (DateTime dateTime, DateTime dateTime2) {},
+  // );
   double todayHieght;
-  TodayScreen(this.todayHieght, this.function, this.habits);
+  TodayScreen(this.todayHieght, this.function, this.habits, this.function2,
+      this.dateTime);
 
   @override
   State<TodayScreen> createState() => _TodayScreenState();
@@ -48,7 +52,20 @@ class _TodayScreenState extends State<TodayScreen> {
             ),
             height: widget.todayHieght,
             duration: const Duration(milliseconds: 500),
-            child: SingleChildScrollView(child: widget.table))
+            child: SingleChildScrollView(
+                child: TableCalendar(
+                    selectedDayPredicate: (day) =>
+                        isSameDay(day, widget.dateTime),
+                    calendarStyle:
+                        const CalendarStyle(rangeHighlightColor: Colors.red),
+                    rowHeight: 100.h,
+                    firstDay: DateTime.utc(2010, 10, 16),
+                    lastDay: DateTime.utc(2030, 3, 14),
+                    focusedDay: widget.dateTime,
+                    onDaySelected: (DateTime selectedDay, DateTime focusedDay) {
+                      widget.dateTime = selectedDay;
+                      widget.function2(selectedDay);
+                    })))
       ],
     );
   }

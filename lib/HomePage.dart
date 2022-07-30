@@ -25,12 +25,19 @@ class _HomePageState extends State<HomePage> {
   List<Habit> todayHabits = [];
   int currentIndex = 0;
   double tableHeight = 0;
+  DateTime now = DateTime.now();
   //Widget CurrentLeading = Text("HabitList".tr());
 
   Refresh() async {
     todayHabits = await connection.instance.realAllHaibtsByDay();
     habits = await connection.instance.readAllHabits();
 
+    setState(() {});
+  }
+
+  pickHabitsByDay(DateTime dateTime) async {
+    todayHabits = await connection.instance.realAllHaibtsBySpecDay(dateTime);
+    now = dateTime;
     setState(() {});
   }
 
@@ -94,7 +101,8 @@ class _HomePageState extends State<HomePage> {
           leading: currentIndex == 1
               ? GestureDetector(
                   onTap: () {
-                    tableHeight == 0 ? tableHeight = 500.h : tableHeight = 0.h;
+                    tableHeight == 0 ? tableHeight = 700.h : tableHeight = 0.h;
+                    print("pressing button");
                     setState(() {});
                   },
                   child: Container(
@@ -192,6 +200,7 @@ class _HomePageState extends State<HomePage> {
                     habits: habits,
                     function: Refresh,
                   )
-                : TodayScreen(tableHeight, Refresh, todayHabits)));
+                : TodayScreen(
+                    tableHeight, Refresh, todayHabits, pickHabitsByDay, now)));
   }
 }
