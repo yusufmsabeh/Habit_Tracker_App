@@ -41,6 +41,8 @@ class connection {
         'CREATE TABLE $tableHabit (${Habitfields.id} $idType ,${Habitfields.name} $nameType,${Habitfields.target} $targetType ,${Habitfields.done} $doneType,${Habitfields.badge} $badgeType )');
     await db.execute(
         'CREATE TABLE habits_days (id INTEGER , day INTEGER, FOREIGN KEY (id) REFERENCES $tableHabit($habitId) )');
+    await db.execute(
+        'CREATE TABLE habits (id INTEGER , day INTEGER, FOREIGN KEY (id) REFERENCES $tableHabit($habitId) )');
   }
 
   Future<List<Habit>> readAllHabits() async {
@@ -82,6 +84,10 @@ class connection {
     });
 
     return habits;
+  }
+
+  insertDoneDay(Habit habit, DateTime dateTime) async {
+    final db = await instance.database;
   }
 
   Future<List<Habit>> realAllHaibtsBySpecDay(DateTime dateTime) async {
